@@ -87,11 +87,11 @@ Before importing the workflow, prepare:
 
 ### 1. Download and Import the Workflow
 
-1. Open the [`AI-Shopping-Assistant-Workflow.json`](./AI-Shopping-Assistant-Workflow.json) file in this repository.
-2. Download the JSON file to your computer.
-3. Open your n8n instance.
-4. Select **Import from File** and choose the downloaded JSON file.
-5. Review the imported nodes, connections, and workflow configuration.
+1. Open the [AI-Shopping-Assistant-Workflow.json](./AI-Shopping-Assistant-Workflow.json) file in this repository.
+3. Download the JSON file to your computer.
+4. Open your n8n instance.
+5. Select **Import from File** and choose the downloaded JSON file.
+6. Review the imported nodes, connections, and workflow configuration.
 
 > The workflow JSON is already included in this repository. You do not need to export another workflow from your own n8n instance.
 
