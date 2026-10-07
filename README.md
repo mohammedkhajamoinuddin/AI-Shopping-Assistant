@@ -77,45 +77,68 @@ It also supports voice input by transcribing Telegram voice messages into text u
 
 ### Prerequisites
 
-Before importing the workflow, prepare:
+You will need the following accounts, API keys, and tools to run the workflow.
 
-- An n8n instance.
-- A Telegram bot and bot token created using [BotFather](https://t.me/BotFather).
-- A Google Gemini API key.
-- A Groq API key with access to the required speech-to-text model.
-- A ScraperAPI API key and an appropriate subscription or usage allowance.
+| Service | Purpose | Where to get it |
+|---|---|---|
+| n8n | Workflow automation and orchestration | [n8n](https://n8n.io/) |
+| Telegram Bot | Receives user messages and sends recommendations | [BotFather](https://t.me/BotFather) |
+| Google Gemini | Understands shopping requests and generates AI responses | [Google AI Studio](https://aistudio.google.com/) |
+| Groq Whisper | Converts voice messages into text | [Groq Console](https://console.groq.com/) |
+| ScraperAPI | Retrieves Amazon India search results | [ScraperAPI](https://www.scraperapi.com/) |
 
-### 1. Download and Import the Workflow
+### 1. Create the Required Credentials
 
-1. Open the [Ai-Shopping-Assistant-Workflow.json](./Ai-Shopping-Assistant-Workflow.json) file in this repository.
+**Telegram Bot**
+1. Open [BotFather](https://t.me/BotFather) in Telegram.
+2. Send `/newbot` and follow the instructions to create a bot.
+3. Copy the bot token provided by BotFather.
+4. In n8n, create Telegram credentials using this token.
+
+**Google Gemini API**
+1. Open [Google AI Studio](https://aistudio.google.com/).
+2. Sign in and create or select a project.
+3. Generate an API key.
+4. Configure the corresponding Google Gemini Chat Model credential in n8n.
+
+**Groq API**
+1. Open the [Groq Console](https://console.groq.com/).
+2. Sign in and generate an API key.
+3. Configure the key in the voice-transcription HTTP Request node's authorization header, using the Bearer authentication format expected by the API.
+4. Ensure the selected Whisper model is available to your account.
+
+**ScraperAPI**
+1. Register or sign in at [ScraperAPI](https://www.scraperapi.com/).
+2. Open your dashboard and locate your API key.
+3. Configure the key in the product-search HTTP Request tool.
+4. Check your available credits and plan before testing.
+
+Keep all tokens and API keys private. Never replace the placeholders in public documentation with real credentials.
+
+### 2. Download and Import the Workflow
+
+1. Open [`Ai-Shopping-Assistant-Workflow.json`](./Ai-Shopping-Assistant-Workflow.json) in this repository.
 2. Download the JSON file to your computer.
 3. Open your n8n instance.
-4. Select **Import from File** and choose the downloaded JSON file.
-5. Review the imported nodes, connections, and workflow configuration.
+4. Open the workflow editor's menu and select **Import from File**.
+5. Choose the downloaded JSON file.
+6. Review the imported workflow, its nodes, connections, and configuration.
 
-> The workflow JSON is already included in this repository. You do not need to export another workflow from your own n8n instance.
+The workflow JSON is included in this repository. You do not need to export another copy from your own n8n instance.
 
-### 2. Configure Credentials
+### 3. Configure and Test the Workflow
 
-Configure the credentials or API authentication required by the imported nodes:
+1. Assign your Telegram and Google Gemini credentials to the appropriate nodes.
+2. Replace any placeholder or embedded API keys in the Groq and ScraperAPI HTTP Request configurations with your own keys.
+3. Check the AI Agent's system instructions and verify its connection to the product-search tool.
+4. Test a text query, such as `Find Puma shoes under ₹6,000`.
+5. Test a styling query, such as `How can I style blue jeans?`.
+6. Send a Telegram voice message and verify that it is transcribed before reaching the AI Agent.
+7. Confirm that the assistant replies in Telegram with the expected recommendations or styling advice.
 
-- **Telegram:** Bot API credentials.
-- **Google Gemini:** Gemini API credentials for the AI Agent's language model.
-- **Groq:** API key for the Whisper transcription request.
-- **ScraperAPI:** API key used by the product-search HTTP Request tool.
+The workflow may require credential remapping or configuration adjustments after import, depending on your n8n version and setup.
 
-If any credentials, model selections, request parameters, or expressions require manual configuration after import, review them before execution.
-
-### 3. Activate and Test
-
-1. Confirm that all required credentials are configured.
-2. Verify the AI Agent's system instructions and product-search tool connection.
-3. Test a text query, such as `Find running shoes under ₹5,000`.
-4. Test a styling query, such as `How can I style blue jeans?`.
-5. Send a Telegram voice message and verify that transcription reaches the AI Agent.
-6. Confirm that the resulting response is delivered to the Telegram conversation.
-
-The exact setup may vary with your n8n version and the credential configuration of the imported workflow.
+**Important:** Do not commit API keys, bot tokens, or other secrets to GitHub. Review the workflow JSON before sharing it and use your own credentials when configuring the imported workflow.
 
 ## Security
 
